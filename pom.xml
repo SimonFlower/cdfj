@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>gov.nasa.gsfc.spdf</groupId>
+    <artifactId>cdfj</artifactId>
+    <!-- this version should follow the version of the CDF source code downloaded
+         from NASA. See the project README for details -->
+    <version>3.8</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <build>
+        <plugins>
+            <!-- this plugin distributes the source code with the library -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- this plugin distributes the java docs with the library -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- DistributionManagement -->
+    <distributionManagement>
+        <repository>
+            <id>libs-release-local</id>
+            <name>libs-release-local</name>
+            <url>http://hwlwebapp/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>libs_snapshot-local</id>
+            <name>libs_snapshot-local</name>
+            <url>http://hwlwebapp/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
