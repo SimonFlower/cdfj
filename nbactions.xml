@@ -4,8 +4,8 @@
             <actionName>CUSTOM-Deploy</actionName>
             <displayName>Deploy</displayName>
             <goals>
-                <goal>jar:jar</goal>
-                <goal>deploy:deploy</goal>
+                <goal>package</goal>
+                <goal>deploy</goal>
             </goals>
         </action>
     </actions>

@@ -23,7 +23,6 @@ public interface TimeSeries {
      *   <li>double[n][n1][n2][n3] for  3-d variable of dimension n1,n2,n3</li>
      * </ul> where n is the length of the array returned by
      * {@link #getTimes() getTimes()}
-     * @return data values as an object
      * @throws CDFException.ReaderError if an error occurs
      */
     public Object getValues() throws CDFException.ReaderError;

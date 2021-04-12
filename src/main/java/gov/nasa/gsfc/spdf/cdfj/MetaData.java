@@ -152,7 +152,6 @@ public abstract class MetaData {
      * Returns an indication of the record varying property of a variable.
      * @return false if variable has a constant value for this CDF.
      * @param varName The variable name
-     * @return A flag indicating whether the variable is record varying
      * @throws   CDFException.ReaderError  if variable does not exist
      */
     public final boolean recordVariance( String varName) throws
