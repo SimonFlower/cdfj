@@ -768,6 +768,7 @@ public class GenericWriter {
      * CDF_UINT2 and CDF_UINT4 only,specifies that values in
      * data array can be interpreted as unsigned.
      * <table>
+     * <caption>Data array details</caption>
      * <tr><td>CDF Type of Variable</td><td>Type of Array</td></tr>
      * <tr><td>INT8, TT2000, UINT4</td><td>long</td></tr>
      * <tr><td>UINT4</td><td>int, if relax = true, long otherwise</td></tr>
@@ -880,6 +881,7 @@ public class GenericWriter {
      * CDF_UINT2 and CDF_UINT4 only,specifies that values in
      * data array can be interpreted as unsigned.
      * <table>
+     * <caption>Data array details</caption>
      * <tr><td>CDF Type of Variable</td><td>Type of Array</td></tr>
      * <tr><td>INT8, TT2000, UINT4</td><td>long</td></tr>
      * <tr><td>UINT4</td><td>int, if relax = true, long otherwise</td></tr>
