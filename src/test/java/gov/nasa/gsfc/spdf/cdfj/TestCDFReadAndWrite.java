@@ -8,13 +8,8 @@ package gov.nasa.gsfc.spdf.cdfj;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import gov.nasa.gsfc.spdf.cdfj.TestCDFReadAndWrite;
 import gov.nasa.gsfc.spdf.cdfj.CDFReader;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.Vector;
 import org.junit.Rule;

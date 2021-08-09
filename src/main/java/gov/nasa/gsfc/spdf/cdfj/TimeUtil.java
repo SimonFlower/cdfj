@@ -2,6 +2,9 @@ package gov.nasa.gsfc.spdf.cdfj;
 import java.util.*;
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.*;
 public class TimeUtil {
     static final long[] jtimes;
@@ -13,6 +16,7 @@ public class TimeUtil {
     public static final long TT_JANUARY_1_1970 = -946727957816000000l;
     static final long JANUARY_1_1972 = Date.UTC(72,0,1,0,0,0);
     static final int lastLeapSecondId;
+    public static String leapsecond_reader_errmsg = null;
     static {
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         boolean[][] transition = new boolean[100][2];
@@ -43,6 +47,7 @@ public class TimeUtil {
         transition[42][0] = true;
         transition[45][0] = true;
         transition[46][1] = true;
+// original code (commented out) for loading leap second table
 /*
         try {
             URL url = new URL(
@@ -73,6 +78,57 @@ public class TimeUtil {
             "Using existing table for version 3.6");
         }
 */
+
+/*
+// new code for loading leap second table
+boolean[][] old_transition = transition;
+transition = new boolean[100][2];
+
+        String leap_sec_filename = System.getenv("CDF_LEAPSECONDSTABLE");
+        if (leap_sec_filename == null)
+            leap_sec_filename = System.getProperty("CDF_LEAPSECONDSTABLE");
+        if (leap_sec_filename != null)
+        {
+            // copy the file from the library to the specified location, if it doesn't exist
+            File leap_sec_file = new File (leap_sec_filename);
+            if (! leap_sec_file.exists())
+            {
+                try
+                {
+                    Files.copy(leap_sec_file.toPath(), Paths.get("src/test/resources/CDFLeapSeconds.txt"));
+                }
+                catch (IOException e) { }
+            }
+            
+            // attempt to read the file
+            try {
+                String s = new String(Files.readAllBytes(leap_sec_file.toPath()), StandardCharsets.UTF_8);
+                Scanner sc = new Scanner(s);
+                Vector lines = new Vector();
+                while (sc.hasNextLine()) lines.add(sc.nextLine());
+                int n = lines.size() -2;
+                while (n > 0) {
+                    Scanner scl = new Scanner((String)lines.get(n));
+                    int year = scl.nextInt();
+                    int mon = scl.nextInt();
+                    if (mon == 7) transition[year-1970][0]=true;
+                    if (mon == 1) transition[year-1970-1][1]=true;
+                    if (year == 1973) break;
+                    n--;
+                }
+            } catch (Exception ex) {
+                leapsecond_reader_errmsg = "Unable to retrieve leap second table. " +
+                                           "Using existing table for version 3.6";
+            }
+        }
+
+for (int count=0; count<100; count++)
+    System.out.println (Integer.toString (1970 + count) + " " + 
+                        Boolean.toString (old_transition[count][0]) + " " +
+                        Boolean.toString (old_transition[count][1]) + " " +
+                        Boolean.toString (transition[count][0]) + " " +
+                        Boolean.toString (transition[count][1]) + " ");
+*/        
         Vector<Long> times = new Vector<Long>();
         Vector<Integer> ids = new Vector<Integer>();
         for (int i = 0; i < transition.length; i++) {

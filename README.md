@@ -19,8 +19,26 @@ General downloads page: https://cdf.gsfc.nasa.gov/html/sw_and_docs.html
 Download version 3.8: https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/cdf38_0/
 (select the file cdf38_0-dist-cdfj_src.tar.gz
 
-Note that a few changes has to be made to the source code comments to prevent
+## Modifications made to the code
+
+A few changes have to be made to the source code comments to prevent
 Javadoc errors from terminating the build process.
+
+New code has been introduced in gov.nasa.gsfc.spdf.cdfj.TimeUtil to access a
+local file that contains details of leap seconds. In the original source code
+the leap second data is embedded in the code, with a commented out section of
+code showing how to access the leap second table at 
+https://hpiers.obspm.fr/eoppc/bul/bulc/UTC-TAI.history. The new code uses the
+embedded leap second table unless the environment variable or system property
+CDF_LEAPSECONDSTABLE is set, in which case the code attempts to load data from 
+the file specified in the variable/property. The file is in
+the standard CDF format for leap seconds and can be obtained from here:
+
+https://cdf.gsfc.nasa.gov/html/CDFLeapSeconds.txt
+
+
+A leap second file has been added to the library and is copied to the location
+specified by $CDF_LEAPSECONDSTABLE if the file does not already exist.
 
 ## Description
 Reader and writer for NASA CDF data files. Unlike previous libraries this is pure
