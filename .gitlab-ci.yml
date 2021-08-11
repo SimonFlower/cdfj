@@ -28,8 +28,6 @@ cache:
 build:
   stage: build
   script:
-    - echo "$MAVEN_CLI_OPTS"
-    - echo "$MAVEN_OPTS"
     - mvn $MAVEN_CLI_OPTS compile
 
 test:
@@ -42,6 +40,5 @@ deploy:
   script:
     - mvn $MAVEN_CLI_OPTS package deploy
   only:
-    - petes_test
     - master
 
