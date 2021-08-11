@@ -5,6 +5,14 @@
 # To work, you need to set MVN_REPO_USER and MVN_REPO_PASS variables to
 #   the login credentials to the Artifactory repository where the code
 #   will be deployed
+# A keystore and trust store that are setup with the certificates to access
+# the maven repositories in pom.xml are included in this project
+# If additional maven repositories are added in pom.xml the truststore will have 
+# to be updated. 
+# Instructions on how to use SSL keys with maven repositories can be found in
+# http://geomag_websites.glpages.ad.nerc.ac.uk/handover_documentation/SimonFlower/
+# in the section Web Servers->Use of http and https here
+#
 
 image: maven:latest
 
@@ -30,7 +38,7 @@ test:
 deploy:
   stage: deploy
   script:
-    - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS package deploy
+    - mvn $MAVEN_CLI_OPTS package deploy
   only:
     - petes_test
     - master
