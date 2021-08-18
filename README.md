@@ -45,6 +45,15 @@ Reader and writer for NASA CDF data files. Unlike previous libraries this is pur
 Java code and does not need any native shared libraries to work. The code has no
 external dependencies, either at compile or run time.
 
+## Using java keystore and trust store with maven
+maven now requires all artifact repositories to be accessed with https
+this in turn needs a suitably configured keystore and truststore,
+the locations and passwords for these need to be passed as maven command line options
+or via the environment variable MAVEN_OPTS
+A keystore and trust store are included in this project. 
+The .gilab-ci file contains the maven options required and the passwords can be found
+in this projects GitLab CI/CD Variables 
+
 
 ## How to install the compiled product
 
