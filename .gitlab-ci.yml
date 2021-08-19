@@ -22,11 +22,6 @@ variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository "
   MAVEN_TLS_OPTS: "-Djavax.net.ssl.trustStore=.m2/trust.jks -Djavax.net.ssl.trustStoreType=jks -Djavax.net.ssl.keyStorePassword=$TRUSTSTORE_PWD -Djavax.net.ssl.keyStore=.m2/keyStore.p12 -Djavax.net.ssl.trustStorePassword=$KEYSTORE_PWD -Djavax.net.ssl.keyStoreType=pkcs12"
 
-cache:
-  key: universal-cache
-  paths:
-    - .m2/repository/
-
 build:
   stage: build
   script:
@@ -34,7 +29,9 @@ build:
   artifacts:
     paths:
       - target/
-  
+  cache:
+    key: universal-cache
+      - .m2/repository/
 
 test:
   stage: test
