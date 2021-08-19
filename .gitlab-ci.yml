@@ -38,6 +38,7 @@ test:
 deploy:
   stage: deploy
   script:
+    - ls -l .m2
     - mvn $MAVEN_CLI_OPTS package deploy
   only:
     - master
