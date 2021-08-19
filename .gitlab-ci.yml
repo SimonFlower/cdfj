@@ -29,9 +29,6 @@ build:
   artifacts:
     paths:
       - target/
-  cache:
-    key: universal-cache
-    paths:
       - .m2/repository/
 
 test:
