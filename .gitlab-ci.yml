@@ -39,7 +39,9 @@ deploy:
   stage: deploy
   script:
     - ls -l .m2
-    - mvn $MAVEN_CLI_OPTS package deploy
+    - echo $TRUSTSTORE_PWD
+    - echo $KEYSTORE_PWD
+    - mvn -X $MAVEN_CLI_OPTS package deploy
   only:
     - master
 
