@@ -1,10 +1,11 @@
 # GitLab CI to build cdfj and install it in Geomag Artifactory
 #
-# Most of the configuration is in pom.xml
-# The authentication is in .m2/settings.xml
+# Most of the configuration, including TLS settings for Maven, is in pom.xml
+# The Artifactory authentication is in .m2/settings.xml
 # To work, you need to set MVN_REPO_USER and MVN_REPO_PASS variables to
 #   the login credentials to the Artifactory repository where the code
-#   will be deployed
+#   will be deployed. You also need to set TRUSTSTORE_PWD and KEYSTORE_PWD
+#   variables to the passphrases for the respecitve stores.
 # A keystore and trust store that are setup with the certificates to access
 # the maven repositories in pom.xml are included in this project
 # If additional maven repositories are added in pom.xml the truststore will have 
@@ -19,13 +20,17 @@ image: maven:latest
 variables:
   MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository "
+  MAVEN_TLS_OPTS: "-Djavax.net.ssl.trustStore=.m2/trust.jks -Djavax.net.ssl.trustStoreType=jks -Djavax.net.ssl.keyStorePassword=$TRUSTSTORE_PWD -Djavax.net.ssl.keyStore=.m2/keyStore.p12 -Djavax.net.ssl.trustStorePassword=$KEYSTORE_PWD -Djavax.net.ssl.keyStoreType=pkcs12"
 
 cache:
   key: universal-cache
   paths:
     - .m2/repository/
-    - target/
 
+artifacts:
+  paths:
+    - target/
+  
 build:
   stage: build
   script:
@@ -42,7 +47,7 @@ deploy:
     - ls -l .m2
     - echo $TRUSTSTORE_PWD
     - echo $KEYSTORE_PWD
-    - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS package deploy
+    - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS $MAVE_TLS_OPTS package deploy
   only:
     - master
 
