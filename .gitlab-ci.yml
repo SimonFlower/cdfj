@@ -21,6 +21,7 @@ variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository "
 
 cache:
+  key: universal-cache
   paths:
     - .m2/repository/
     - target/
@@ -28,12 +29,12 @@ cache:
 build:
   stage: build
   script:
-    - mvn $MAVEN_CLI_OPTS compile
+    - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS compile
 
 test:
   stage: test
   script:
-    - mvn $MAVEN_CLI_OPTS test
+    - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS test
 
 deploy:
   stage: deploy
@@ -41,7 +42,7 @@ deploy:
     - ls -l .m2
     - echo $TRUSTSTORE_PWD
     - echo $KEYSTORE_PWD
-    - mvn -X $MAVEN_CLI_OPTS package deploy
+    - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS package deploy
   only:
     - master
 
