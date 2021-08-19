@@ -18,7 +18,7 @@ image: maven:latest
 
 variables:
   MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -Djavax.net.ssl.trustStore=./trust.jks -Djavax.net.ssl.trustStoreType=jks -Djavax.net.ssl.keyStorePassword=$KEYSTORE_PWD -Djavax.net.ssl.keyStore=./keyStore.p12 -Djavax.net.ssl.trustStorePassword=$TRUSTSTORE_PWD -Djavax.net.ssl.keyStoreType=pkcs12 "
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository "
 
 cache:
   paths:
