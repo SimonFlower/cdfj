@@ -42,6 +42,8 @@ deploy:
     - ls -l .m2
     - echo $TRUSTSTORE_PWD
     - echo $KEYSTORE_PWD
+    - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS $MAVEN_TLS_OPTS help:system
+    - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS help:system
     - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS $MAVEN_TLS_OPTS package deploy
   only:
     - master
