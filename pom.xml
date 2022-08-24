@@ -56,17 +56,14 @@
         </dependency>
     </dependencies>
     
-    <!-- DistributionManagement -->
+    <!-- Distribution management sets repositories where the compiled code, sources
+         and javadocs are uploaded to - this happens during Maven's "deploy" goal -->
     <distributionManagement>
         <repository>
-            <id>libs-release-local</id>
-            <name>libs-release-local</name>
-            <url>https://hwlwebpages.ad.nerc.ac.uk/artifactory/libs-release-local</url>
+            <id>maven-local-thirdparty</id>
+            <name>maven-local-thirdparty</name>
+            <url>http://nexus-internal.bgs.ac.uk/repository/maven-local-thirdparty/ </url>
         </repository>
-        <snapshotRepository>
-            <id>libs_snapshot-local</id>
-            <name>libs_snapshot-local</name>
-            <url>https://hwlwebpages.ad.nerc.ac.uk/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
+        <!-- there is no snapshot repository for third party artifacts -->
     </distributionManagement>
 </project>

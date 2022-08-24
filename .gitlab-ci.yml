@@ -1,26 +1,16 @@
 # GitLab CI to build cdfj and install it in Geomag Artifactory
 #
-# Most of the configuration, including TLS settings for Maven, is in pom.xml
-# The Artifactory authentication is in .m2/settings.xml
+# Most of the configuration is in pom.xml
+# The Nexus authentication is in .m2/settings.xml
 # To work, you need to set MVN_REPO_USER and MVN_REPO_PASS variables to
-#   the login credentials to the Artifactory repository where the code
-#   will be deployed. You also need to set TRUSTSTORE_PWD and KEYSTORE_PWD
-#   variables to the passphrases for the respecitve stores.
-# A keystore and trust store that are setup with the certificates to access
-# the maven repositories in pom.xml are included in this project
-# If additional maven repositories are added in pom.xml the truststore will have 
-# to be updated. 
-# Instructions on how to use SSL keys with maven repositories can be found in
-# http://geomag_websites.glpages.ad.nerc.ac.uk/handover_documentation/SimonFlower/
-# in the section Web Servers->Use of http and https here
-#
+#   the login credentials to the Nexus repository where the code
+#   will be deployed.
 
-image: maven:latest
+image: maven:3.6.3-openjdk-17
 
 variables:
   MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository "
-  MAVEN_TLS_OPTS: "-Djavax.net.ssl.trustStore=.m2/trust.jks -Djavax.net.ssl.trustStoreType=jks -Djavax.net.ssl.keyStorePassword=$TRUSTSTORE_PWD -Djavax.net.ssl.keyStore=.m2/keyStore.p12 -Djavax.net.ssl.trustStorePassword=$KEYSTORE_PWD -Djavax.net.ssl.keyStoreType=pkcs12"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
 
 build:
   stage: build
@@ -39,7 +29,7 @@ test:
 deploy:
   stage: deploy
   script:
-    - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS $MAVEN_TLS_OPTS package deploy
+    - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS package deploy
   only:
     - master
 
