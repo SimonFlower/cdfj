@@ -1,4 +1,4 @@
-# GitLab CI to build cdfj and install it in Geomag Artifactory
+# GitLab CI to build cdfj and deploy it to BGS Nexus
 #
 # Most of the configuration is in pom.xml
 # The Nexus authentication is in .m2/settings.xml
@@ -29,7 +29,6 @@ test:
 deploy:
   stage: deploy
   script:
-    - echo "DEBUG - Using user $MAVEN_REPO_USER/$MAVEN_REPO_PASS for maven deploy"
     - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS package deploy
   only:
     - master
