@@ -29,7 +29,7 @@ test:
 deploy:
   stage: deploy
   script:
-    - echo "DEBUG: using user $MAVEN_REPO_USER/$MAVEN_REPO_PASS for maven deploy"
+    - echo "DEBUG - Using user $MAVEN_REPO_USER/$MAVEN_REPO_PASS for maven deploy"
     - mvn $MAVEN_CLI_OPTS $MAVEN_OPTS package deploy
   only:
     - master
