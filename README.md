@@ -12,12 +12,7 @@
 | BGS team:                | Geomagnetism |
 
 A pure Java library to read and write NASA CDF data files. The source code for the
-library is available from NASA, here:
-
-General downloads page: https://cdf.gsfc.nasa.gov/html/sw_and_docs.html
-
-Download version 3.8: https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/cdf38_0/
-(select the file cdf38_0-dist-cdfj_src.tar.gz
+library is available from GITHub, here: https://github.com/autoplot/cdfj
 
 ## Description
 
