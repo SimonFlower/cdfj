@@ -1,7 +1,5 @@
 # Software project description
 
-|                          |         |
-| ------------------------ | ------- |
 | Project Name:            | cdfj |
 | Main developer(s):       | Jane Exton and Simon Flower  |
 | Main user(s):            | Jane Exton and Simon Flower |
@@ -31,6 +29,13 @@ external dependencies, either at compile or run time.
 A few changes have to be made to the source code comments to prevent
 Javadoc errors from terminating the build process.
 
+### Tests ###
+
+Test code was written to investigate how the pure Java CDF library works,
+since no example code is provided with the library. The functions used
+in the test make use of all aspects of the CDF library needed for the
+BGS Intermagnet CDF library code
+
 ### Leap Seconds ###
 
 New code was introduced in gov.nasa.gsfc.spdf.cdfj.TimeUtil to access a
@@ -50,61 +55,3 @@ https://cdf.gsfc.nasa.gov/html/CDFLeapSeconds.txt
 A leap second file has been added to the library and is copied to the location
 specified by $CDF_LEAPSECONDSTABLE if the file does not already exist.
 
-
-## Using java keystore and trust store with Maven ##
-
-Maven now requires all artifact repositories to be accessed with https.
-This in turn needs a suitably configured keystore and truststore.
-A keystore and trust store have been included in this project, in the folder
-".m2".
-
-The locations and passwords for these stores need to be passed to Maven
-as Java system properties. When running Maven under GitLab, this is dealt
-with using the $MAVEN_TLS_OPTS variable, which contains command line
-arguments for Maven. These command line arguments reference two variables
-which contain passphrases to open the keystore and truststore files:
-- $TRUSTSTORE_PWD - the passphrase for the trust store file
-- $KEYSTORE_PWD - the passphrase for the key store file
-These variables should be created in the CI/CD section of the project's 
-settings on GitLab.
-
-When running the project under Netbeans, the IDE should automatically
-import the needed certificates for you. When prompted by a dialog, select
-the option to allow Netbeans to download certificates (Netbeans 8 shows
-a dialog for each certificate that needs to be downloaded).
-
-
-## How to install the compiled product ##
-
-The GitLab CI automatically copies the library to the Geomag Artifactory server.
-To use this CI, you will need to set two variables which the CI requires:
-- $MAVEN_REPO_USER - the username to log in to Artifactory with
-- $MAVEN_REPO_PASS - the password to log in to Artifactory with
-
-These variables must be set in the CI/CD section of the project's settings
-on GitLab. 
-
-The preferred method to deploy the project to Artifactory is to use GitLab
-If you need to deploy the project from your own computer, you will need
-a command line session where Maven is available on the path and the current
-directory is set to the root directory of this project. From this shell
-type:
-
-```
-mvn $MAVEN_CLI_OPTS $MAVEN_OPTS $MAVEN_TLS_OPTS package deploy
-```
-
-Where the values of $MAVEN_CLI_OPTS, $MAVEN_OPTS and $MAVEN_TLS_OPTS
-are taken from the variables in the .gitlab-ci.yml file (with any $variables
-in the .gitlab-ci.yml variables subsituted by their values as found in the
-GitLab CI/CD settings).
-
-Once the library has been deployed to Artifactory other projects can include it 
-as a dependency. You can find the library under:
-
-    libs-release-local  : gov/nasa/gsfc/spdf/cdfj/3.8
-    libs-snapshot-local : gov/nasa/gsfc/spdf/cdfj/3.8
-
-NOTE that the deployment to Artifactory may fail if the library has already
-been uploaded. In this instance you will need to log in to Artifactory using
-a web browser and delete all related files before re-trying the deployment.
