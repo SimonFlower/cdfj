@@ -1,5 +1,7 @@
 # Software project description
 
+| <!--              -->    | <!-- -->    |
+|--------------------------|-------------|
 | Project Name:            | cdfj |
 | Main developer(s):       | Jane Exton and Simon Flower  |
 | Main user(s):            | Jane Exton and Simon Flower |
